@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: content-service
+  cloud:
+    config:
+      enabled: false # при тестировании переключать
+      uri: http://config:8888
+      fail-fast: true
+      password: ${CONFIG_SERVICE_PASSWORD}
+      username: user
+

@@ -1,0 +1,26 @@
+#  docker run --name content-postgres -p 5432:5432 -e POSTGRES_PASSWORD=password -d postgres:13.1
+spring:
+  datasource:
+    username: postgres
+    password: password
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
+
+#   docker run -d -p 5672:5672 -p 15672:15672 --name content-rabbit rabbitmq:3-management
+  rabbitmq:
+    host: localhost
+    port: 5672
+
+eureka:
+  client:
+    enabled: false
+
+logging:
+  level:
+    root: DEBUG
+
