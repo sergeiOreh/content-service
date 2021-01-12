@@ -16,7 +16,6 @@ public class PostgresContainer implements ApplicationContextInitializer<Configur
             .withUsername("postgres")
             .withPassword("password");
 
-
     @Override
     public void initialize(ConfigurableApplicationContext applicationContext) {
 

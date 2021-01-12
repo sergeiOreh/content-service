@@ -21,21 +21,24 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-amqp'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.cloud:spring-cloud-starter-config'
-//    implementation 'org.springframework.cloud:spring-cloud-starter-oauth2'
-//    implementation 'org.springframework.cloud:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-cache'
 
+    implementation 'org.springframework.cloud:spring-cloud-starter-config'
     implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+
     runtimeOnly 'org.postgresql:postgresql'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation 'org.springframework.amqp:spring-rabbit-test'
+    testImplementation 'org.springframework.security:spring-security-test'
     testImplementation 'org.springframework.security:spring-security-test'
     testCompile "org.testcontainers:postgresql:$testContainerVersion"
     testCompile "org.testcontainers:rabbitmq:$testContainerVersion"
     compile group: 'org.codehaus.jackson', name: 'jackson-core-asl', version: '1.1.0'
+
     compile group: 'org.projectlombok', name: 'lombok', version: '1.18.12'
     annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.12'
     compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-feign', version: '1.4.7.RELEASE'
+    compile group: 'com.hazelcast', name: 'hazelcast', version: '4.0'
+
 }
 
 dependencyManagement {

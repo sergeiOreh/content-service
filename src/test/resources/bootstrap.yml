@@ -4,17 +4,25 @@ spring:
     username: postgres
     password: password
     driver-class-name: org.postgresql.Driver
+#    url: jdbc:postgresql://localhost:5432/postgres # при подключении контейнера отключить
   jpa:
     show-sql: true
     hibernate:
       ddl-auto: create
     properties:
-      hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
+      hibernate.dialect: org.hibernate.dialect.PostgreSQL9Dialect
 
 #   docker run -d -p 5672:5672 -p 15672:15672 --name content-rabbit rabbitmq:3-management
   rabbitmq:
     host: localhost
     port: 5672
+
+  profiles:
+    active: cron
+
+  cloud:
+    config:
+      enabled: false
 
 eureka:
   client:
@@ -23,4 +31,3 @@ eureka:
 logging:
   level:
     root: DEBUG
-

@@ -1,27 +1,43 @@
 package com.piggymetrics.content.dao.model;
 
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.net.URL;
 
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 @Entity
+@Table(name = "CONTENT")
 public class Content {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String accountName;
+    @ManyToOne
+    @JoinColumn(name="account_name")
+    private Account account;
 
     private ContentType type;
 
     private URL url;
 
+    public Content(Account account, ContentType type) {
+        this.account = account;
+        this.type = type;
+    }
+
+    @Override
+    public String toString() {
+        return "Content{" +
+                "id=" + id +
+                ", account=" + account +
+                ", type=" + type +
+                ", url=" + url +
+                '}';
+    }
 }
