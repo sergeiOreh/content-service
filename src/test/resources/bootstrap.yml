@@ -18,7 +18,7 @@ spring:
     port: 5672
 
   profiles:
-    active: cron
+    active: event
 
   cloud:
     config:

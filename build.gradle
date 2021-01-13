@@ -38,7 +38,6 @@ dependencies {
     annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.12'
     compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-feign', version: '1.4.7.RELEASE'
     compile group: 'com.hazelcast', name: 'hazelcast', version: '4.0'
-
 }
 
 dependencyManagement {

@@ -16,5 +16,7 @@ public class AccountDto {
 
 	private String note;
 
-//	private List<Content> contentList;
+	public AccountDto(@NotBlank String name) {
+		this.name = name;
+	}
 }
