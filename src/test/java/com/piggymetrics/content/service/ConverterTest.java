@@ -54,15 +54,13 @@ public class ConverterTest extends ContentServiceAbstractTest {
         when(accountRepository.findById(anyString())).thenReturn(Optional.of(new Account("mark1488")));
 
         Content content = converter.convertToContent(contentDto);
-        log.info(content.toString());
         assertEquals(contentDto.getId(), content.getId());
         assertEquals(contentDto.getAccountName(), content.getAccount().getName());
     }
 
     @Test
-    public void whenConvertEntityToDto_thenCorrect() throws MalformedURLException {
+    public void whenConvertEntityToDto_thenCorrect(){
         ContentDto contentDto = converter.convertToContentDTO(content);
-        log.info(contentDto.toString());
         assertEquals(content.getId(), contentDto.getId());
         assertEquals(content.getAccount().getName(), contentDto.getAccountName());
     }
@@ -80,5 +78,4 @@ public class ConverterTest extends ContentServiceAbstractTest {
 
         assertTrue(actualMessage.contains(expectedMessage));
     }
-
 }

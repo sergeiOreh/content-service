@@ -1,7 +1,6 @@
 package com.piggymetrics.content.service;
 
 import com.piggymetrics.content.client.dto.ContentDto;
-import com.piggymetrics.content.dao.model.Content;
 
 import java.util.List;
 
@@ -16,10 +15,4 @@ public interface ContentService {
     void deleteById(Long id);
 
     ContentDto addNewContent(ContentDto contentDto);
-
-    Content getById(Long id);
-
-    Content create(Content content);
-
-
 }

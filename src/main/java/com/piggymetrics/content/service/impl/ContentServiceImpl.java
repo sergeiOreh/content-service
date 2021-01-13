@@ -91,19 +91,6 @@ public class ContentServiceImpl implements ContentService {
                 });
     }
 
-    @Cacheable(value = "content")
-    @Override
-    public Content getById(Long id) {
-        log.info("getting content by id: {}", id);
-        return contentRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Content not found by id " + id));
-    }
-
-    @Override
-    public Content create(Content content) {
-        return contentRepository.save(content);
-    }
-
     @Override
     public void deleteById(Long id) {
         contentRepository.deleteById(id);
