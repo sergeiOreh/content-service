@@ -101,4 +101,11 @@ public class ContentServiceImpl implements ContentService {
         Content savedContent = contentRepository.save(converter.convertToContent(contentDto));
         return converter.convertToContentDTO(savedContent);
     }
+
+    @Override
+    public List<ContentDto> getAll() {
+        return contentRepository.findAll().stream()
+                .map(converter::convertToContentDTO)
+                .collect(Collectors.toList());
+    }
 }

@@ -15,14 +15,14 @@ public class ContentController {
 
     private final ContentService contentService;
 
-    @GetMapping("/greeting")
-    public String getGreeting() {
-        return "Hello, I'm ContentService :)";
-    }
-
     @GetMapping(value = "/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<ContentDto> getByAccountName(@PathVariable String name) {
         return contentService.getByAccountName(name);
+    }
+
+    @GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<ContentDto> getAll() {
+        return contentService.getAll();
     }
 
     @PutMapping(value = "/{accountName}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)

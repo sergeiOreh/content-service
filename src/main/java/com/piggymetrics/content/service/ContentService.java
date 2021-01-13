@@ -15,4 +15,6 @@ public interface ContentService {
     void deleteById(Long id);
 
     ContentDto addNewContent(ContentDto contentDto);
+    
+    List<ContentDto> getAll();
 }
