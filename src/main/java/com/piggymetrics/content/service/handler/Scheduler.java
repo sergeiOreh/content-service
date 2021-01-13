@@ -5,6 +5,8 @@ import com.piggymetrics.content.dao.model.Account;
 import com.piggymetrics.content.dao.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Scheduled;
 
 import java.util.Comparator;
@@ -19,18 +21,18 @@ public class Scheduler {
     private final AccountRepository accountRepository;
 
     private Date dateOfLastAccount;
-    private boolean isFirstCall = true;
 
-    @Scheduled(fixedRate = 5000)
-    public void cronJobSch() {
-        if (isFirstCall){
-            List<Account> accounts = accountServiceClient.getAccounts();
-            if (!accounts.isEmpty()) {
-                accounts.forEach(accountRepository::save);
-                dateOfLastAccount = getDateOfLastAccount(accounts);
-            }
-            isFirstCall = false;
+    @EventListener
+    public void handleApplicationReady(ApplicationReadyEvent ignored) {
+        List<Account> accounts = accountServiceClient.getAccounts();
+        if (!accounts.isEmpty()) {
+            accounts.forEach(accountRepository::save);
+            dateOfLastAccount = getDateOfLastAccount(accounts);
         }
+    }
+
+    @Scheduled(initialDelay = 5000, fixedRate = 5000)
+    public void cronJobSch() {
         List<Account> accountsAfterDate = accountServiceClient.getAccountsAfterDate(dateOfLastAccount);
         if (!accountsAfterDate.isEmpty()) {
             Date lastDate = getDateOfLastAccount(accountsAfterDate);

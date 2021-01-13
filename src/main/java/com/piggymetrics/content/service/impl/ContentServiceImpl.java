@@ -40,11 +40,11 @@ public class ContentServiceImpl implements ContentService {
 
     @CachePut(value = "contentsByAccountName", key = "#accountName")
     @Override
-    public List<ContentDto> updateByAccountName(String accountName, List<ContentDto> contentDTOList) {
+    public List<ContentDto> updateByAccountName(String accountName, List<ContentDto> newContents) {
         log.info("updating content by accountName: {}", accountName);
         return accountRepository.findById(accountName)
                 .map(account -> {
-                    updateContentForAccount(contentDTOList, account);
+                    updateContentForAccount(newContents, account);
 
                     return accountRepository.save(account)
                             .getContentList()
@@ -55,7 +55,7 @@ public class ContentServiceImpl implements ContentService {
                 .orElseThrow(() -> new EntityNotFoundException("Account not found by name " + accountName));
     }
 
-    private void updateContentForAccount(List<ContentDto> contentDTOList, Account account) {
+    private void updateContentForAccount(List<ContentDto> newContentDtos, Account account) {
         Map<Long, Content> currentContent = account.getContentList()
                 .stream()
                 .collect(Collectors.toMap(
@@ -63,13 +63,13 @@ public class ContentServiceImpl implements ContentService {
                         Function.identity()
                 ));
 
-        contentDTOList.forEach(contentDto -> {
-            if (currentContent.containsKey(contentDto.getId())) {
-                Content contentToUpdate = currentContent.get(contentDto.getId());
-                contentToUpdate.setUrl(contentDto.getUrl());
-                contentToUpdate.setType(contentDto.getType());
+        newContentDtos.forEach(newContentDto -> {
+            if (currentContent.containsKey(newContentDto.getId())) {
+                Content contentToUpdate = currentContent.get(newContentDto.getId());
+                contentToUpdate.setUrl(newContentDto.getUrl());
+                contentToUpdate.setType(newContentDto.getType());
             } else {
-                throw new RuntimeException("NOT FOUND CONTENT EXCEPTION");
+                throw new EntityNotFoundException("Content not found by id");
             }
         });
     }
